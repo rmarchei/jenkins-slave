@@ -1,0 +1,26 @@
+sudo: required
+
+language: ruby
+
+rvm:
+  - 2.2.3
+
+git:
+  depth: 25
+
+services:
+  - docker
+
+before_install:
+  - docker build -t rmarchei/jenkins-slave .
+  - docker run -d -p 127.0.0.1:2222:22 --name jenkins-slave rmarchei/jenkins-slave && sleep 3
+  - docker ps -a
+  - docker exec -it jenkins-slave cat /etc/centos-release
+  - sudo apt-get -qq update
+  - sudo apt-get install -y sshpass
+
+script:
+  - true
+
+after_script:
+  - docker images
