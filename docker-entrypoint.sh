@@ -9,6 +9,4 @@ for f in /docker-entrypoint-init.d/*; do
    echo
 done
 
-chown -R jenkins. $JENKINS_HOME
-
 exec /usr/sbin/sshd -D "$@"
