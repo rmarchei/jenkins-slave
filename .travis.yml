@@ -11,16 +11,21 @@ git:
 services:
   - docker
 
+env:
+  - TRAVIS_TEST_PASSWORD='travis_test_password'
+  - TRAVIS_TEST_PASSWORD='$6$bKgc8/JhVp7/DKZp$7yy32cznyJmlzgQl3rO7OtIhlWk/OkeRdUWtWiv.eYdQkjm1Z4UTrE8LG4IzcP49E2OTbODS.rMkkDxUevZnQ/'
+
 before_install:
   - docker build -t rmarchei/jenkins-slave .
-  - docker run -d -p 127.0.0.1:2222:22 --name jenkins-slave rmarchei/jenkins-slave && sleep 3
+  - docker run -d -p 127.0.0.1:2222:22 --name jenkins-slave -e ROOT_PW="$TRAVIS_TEST_PASSWORD" -e JENKINS_PW="$TRAVIS_TEST_PASSWORD" rmarchei/jenkins-slave && sleep 3
   - docker ps -a
   - docker exec -it jenkins-slave cat /etc/centos-release
   - sudo apt-get -qq update
   - sudo apt-get install -y sshpass
 
 script:
-  - true
+  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l root 127.0.0.1 -p 2222 true
+  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l jenkins 127.0.0.1 -p 2222 true
 
 after_script:
   - docker images
