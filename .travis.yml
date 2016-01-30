@@ -25,9 +25,9 @@ before_install:
   - sudo apt-get install -y sshpass
 
 script:
-  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l root 127.0.0.1 -p 2222 true
-  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l jenkins 127.0.0.1 -p 2222 true
-  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l jenkins 127.0.0.1 -p 2224 true
+  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l root 127.0.0.1 -p 2222 java -version
+  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l jenkins 127.0.0.1 -p 2222 java -version
+  - SSHPASS='travis_test_password' sshpass -e ssh -o stricthostkeychecking=no -l jenkins 127.0.0.1 -p 2224 java -version
 
 after_script:
   - docker images
