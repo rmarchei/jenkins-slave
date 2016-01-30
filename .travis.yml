@@ -18,7 +18,7 @@ env:
 before_install:
   - docker build -t rmarchei/jenkins-slave .
   - docker run -d -p 127.0.0.1:2222:22 --name jenkins-slave -e ROOT_PW="$TRAVIS_TEST_PASSWORD" -e JENKINS_PW="$TRAVIS_TEST_PASSWORD" rmarchei/jenkins-slave
-  - docker run -d -p 127.0.0.1:2224:24 -e SSHD_PORT=24 -e JENKINS_PW="$TRAVIS_TEST_PASSWORD" rmarchei/jenkins-slave && sleep 3
+  - docker run -d -p 127.0.0.1:2224:24 -e SSHD_PORT=24 -e JENKINS_PW="$TRAVIS_TEST_PASSWORD" rmarchei/jenkins-slave
   - docker ps -a
   - docker exec -it jenkins-slave cat /etc/centos-release
   - sudo apt-get -qq update
