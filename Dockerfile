@@ -48,6 +48,7 @@ RUN yum install -y epel-release && \
 
 RUN yum install -y firefox xorg-x11-server-Xvfb ant-junit libexif && \
   yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
+  dbus-uuidgen > /var/lib/dbus/machine-id && \
   yum clean all -q
 
 # Install gcloud
