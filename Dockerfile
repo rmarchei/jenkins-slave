@@ -46,7 +46,7 @@ RUN yum install -y epel-release && \
   subversion git-svn && \
   yum clean all -q
 
-RUN yum install -y firefox xorg-x11-server-Xvfb && \
+RUN yum install -y firefox xorg-x11-server-Xvfb ant-junit && \
   yum install -y https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
   yum clean all -q
 
